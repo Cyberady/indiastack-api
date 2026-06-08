@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IndiaStack API — IFSC & Pincode API for Developers</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #1a1a1a; background: #fff; }
+    nav { padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; }
+    nav .logo { font-size: 20px; font-weight: 600; color: #1a1a1a; }
+    nav a { text-decoration: none; color: #555; margin-left: 24px; font-size: 14px; }
+    nav .btn { background: #1a1a1a; color: white !important; padding: 8px 20px; border-radius: 8px; }
+    .hero { text-align: center; padding: 80px 20px 60px; }
+    .hero h1 { font-size: 48px; font-weight: 700; margin-bottom: 20px; line-height: 1.2; }
+    .hero h1 span { color: #0066ff; }
+    .hero p { font-size: 20px; color: #555; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; }
+    .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary { background: #0066ff; color: white; padding: 14px 32px; border-radius: 10px; text-decoration: none; font-size: 16px; font-weight: 500; }
+    .btn-secondary { background: #f5f5f5; color: #1a1a1a; padding: 14px 32px; border-radius: 10px; text-decoration: none; font-size: 16px; font-weight: 500; }
+    .code-demo { background: #0f1117; color: #e2e8f0; padding: 30px 40px; border-radius: 16px; max-width: 700px; margin: 60px auto; text-align: left; font-family: monospace; font-size: 14px; line-height: 1.8; }
+    .code-demo .comment { color: #6b7280; }
+    .code-demo .green { color: #34d399; }
+    .code-demo .blue { color: #60a5fa; }
+    .code-demo .yellow { color: #fbbf24; }
+    .endpoints { padding: 60px 40px; background: #f8f9fa; }
+    .endpoints h2 { text-align: center; font-size: 32px; margin-bottom: 40px; }
+    .endpoint-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; max-width: 900px; margin: 0 auto; }
+    .endpoint-card { background: white; border: 1px solid #eee; border-radius: 12px; padding: 24px; }
+    .endpoint-card .method { display: inline-block; background: #dcfce7; color: #166534; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 6px; margin-bottom: 12px; font-family: monospace; }
+    .endpoint-card .path { font-family: monospace; font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+    .endpoint-card p { color: #555; font-size: 14px; }
+    .pricing { padding: 60px 40px; }
+    .pricing h2 { text-align: center; font-size: 32px; margin-bottom: 40px; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; max-width: 900px; margin: 0 auto; }
+    .plan { border: 1px solid #eee; border-radius: 12px; padding: 28px; text-align: center; }
+    .plan.popular { border: 2px solid #0066ff; }
+    .plan .badge { background: #eff6ff; color: #0066ff; font-size: 12px; padding: 4px 12px; border-radius: 20px; display: inline-block; margin-bottom: 12px; }
+    .plan h3 { font-size: 20px; margin-bottom: 8px; }
+    .plan .price { font-size: 32px; font-weight: 700; margin-bottom: 4px; }
+    .plan .price span { font-size: 14px; font-weight: 400; color: #555; }
+    .plan .calls { font-size: 14px; color: #555; margin-bottom: 20px; }
+    .plan a { display: block; background: #0066ff; color: white; padding: 10px; border-radius: 8px; text-decoration: none; font-size: 14px; }
+    .plan.free a { background: #f5f5f5; color: #1a1a1a; }
+    .signup-section { padding: 60px 40px; background: #f8f9fa; text-align: center; }
+    .signup-section h2 { font-size: 32px; margin-bottom: 16px; }
+    .signup-section p { color: #555; margin-bottom: 32px; }
+    .signup-form { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; max-width: 500px; margin: 0 auto; }
+    .signup-form input { flex: 1; padding: 12px 16px; border: 1px solid #ddd; border-radius: 8px; font-size: 15px; min-width: 200px; }
+    .signup-form button { background: #0066ff; color: white; border: none; padding: 12px 28px; border-radius: 8px; font-size: 15px; cursor: pointer; }
+    .result-box { margin-top: 20px; background: #0f1117; color: #34d399; padding: 20px; border-radius: 10px; font-family: monospace; font-size: 14px; display: none; text-align: left; max-width: 500px; margin-left: auto; margin-right: auto; }
+    footer { padding: 30px 40px; text-align: center; color: #555; font-size: 14px; border-top: 1px solid #eee; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">IndiaStack API</div>
+  <div>
+    <a href="#endpoints">Endpoints</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#signup">Docs</a>
+    <a href="#signup" class="btn">Get API Key</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <h1>Indian <span>IFSC & Pincode</span><br>API for Developers</h1>
+  <p>Instant bank branch lookup and pincode enrichment. Built for Indian startups. No limits. No drama.</p>
+  <div class="hero-btns">
+    <a href="#signup" class="btn-primary">Get Free API Key</a>
+    <a href="#endpoints" class="btn-secondary">View Endpoints</a>
+  </div>
+</section>
+
+<div class="code-demo">
+  <div class="comment"># Lookup any IFSC code instantly</div>
+  <div>curl <span class="green">https://indiastack.up.railway.app/v1/ifsc/SBIN0001234</span> \</div>
+  <div>  -H <span class="yellow">"x-api-key: your_key_here"</span></div>
+  <br>
+  <div class="comment"># Response</div>
+  <div>{</div>
+  <div>  <span class="blue">"bank"</span>: <span class="yellow">"State Bank of India"</span>,</div>
+  <div>  <span class="blue">"branch"</span>: <span class="yellow">"HAJIGANJ"</span>,</div>
+  <div>  <span class="blue">"city"</span>: <span class="yellow">"PATNA"</span>,</div>
+  <div>  <span class="blue">"upi_enabled"</span>: <span class="green">true</span></div>
+  <div>}</div>
+</div>
+
+<section class="endpoints" id="endpoints">
+  <h2>Endpoints</h2>
+  <div class="endpoint-grid">
+    <div class="endpoint-card">
+      <span class="method">GET</span>
+      <div class="path">/v1/ifsc/:ifsc_code</div>
+      <p>Get bank name, branch, address, city, MICR, UPI/NEFT/RTGS support for any IFSC code.</p>
+    </div>
+    <div class="endpoint-card">
+      <span class="method">GET</span>
+      <div class="path">/v1/pincode/:pincode</div>
+      <p>Get district, state, all post offices, delivery availability for any Indian pincode.</p>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="pricing">
+  <h2>Simple Pricing</h2>
+  <div class="pricing-grid">
+    <div class="plan free">
+      <h3>Free</h3>
+      <div class="price">₹0 <span>/mo</span></div>
+      <div class="calls">1,000 calls/month</div>
+      <a href="#signup">Get Started</a>
+    </div>
+    <div class="plan popular">
+      <div class="badge">Most Popular</div>
+      <h3>Starter</h3>
+      <div class="price">₹999 <span>/mo</span></div>
+      <div class="calls">50,000 calls/month</div>
+      <a href="#signup">Get Started</a>
+    </div>
+    <div class="plan">
+      <h3>Growth</h3>
+      <div class="price">₹2,999 <span>/mo</span></div>
+      <div class="calls">5,00,000 calls/month</div>
+      <a href="#signup">Get Started</a>
+    </div>
+    <div class="plan">
+      <h3>Enterprise</h3>
+      <div class="price">₹9,999 <span>/mo</span></div>
+      <div class="calls">Unlimited calls</div>
+      <a href="#signup">Get Started</a>
+    </div>
+  </div>
+</section>
+
+<section class="signup-section" id="signup">
+  <h2>Get Your Free API Key</h2>
+  <p>1000 free calls. No credit card. Start building in 30 seconds.</p>
+  <div class="signup-form">
+    <input type="email" id="email-input" placeholder="your@email.com">
+    <button onclick="signup()">Get API Key</button>
+  </div>
+  <div class="result-box" id="result-box"></div>
+</section>
+
+<footer>
+  Built with love in Mumbai · IndiaStack API © 2025
+</footer>
+
+<script>
+async function signup() {
+  const email = document.getElementById('email-input').value;
+  if (!email) { alert('Please enter your email'); return; }
+
+  try {
+    const res = await fetch('/v1/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email })
+    });
+    const data = await res.json();
+    const box = document.getElementById('result-box');
+    box.style.display = 'block';
+    box.innerHTML = `✅ Account created!<br><br>Your API Key:<br><strong>${data.data.api_key}</strong><br><br>Free credits: ${data.data.credits}<br><br>Save this key — you'll need it for every request.`;
+  } catch (err) {
+    alert('Something went wrong. Please try again.');
+  }
+}
+</script>
+
+</body>
+</html>

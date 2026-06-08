@@ -5,6 +5,9 @@ const { createUser } = require('./middleware/auth');
 const app = express();
 app.use(express.json());
 
+const path = require('path');
+app.use(express.static(path.join(__dirname, '../public')));
+
 app.use('/v1/ifsc', require('./routes/ifsc'));
 app.use('/v1/pincode', require('./routes/pincode'));
 
